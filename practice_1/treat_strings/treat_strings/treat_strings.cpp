@@ -30,9 +30,10 @@ void delete_one_char(char *result)
 	result[i] = '\0';
 }
 
+/*处理一个字符串，同时需要感知另一个字符串是否为空*/
 int treate_one_str(char *result, char *str, char *aim)
 {
-	int count = WORDS_COUNT;
+	int count = WORDS_COUNT;/*整数计数*/
 	int length = strlen(result);
 	while (count > 0)
 	{
@@ -40,14 +41,14 @@ int treate_one_str(char *result, char *str, char *aim)
 		{
 			if(0 < strlen(aim) && str_null_flag == 0)
 			{
-				result[length] = ',';
+				result[length] = ',';/*如果当前字符串已经用完，但是另一个字符串还未用完，则追加‘，’*/
 				length ++;
 				result[length] = '\0';
 			}
-			str_null_flag = 1;
+			str_null_flag = 1;/*标记是否已经有字符串已经用完了，如果用完了就不用追加‘，’*/
 			return 0;
 		}
-		if(str[0] == ',')
+		if(str[0] == ',')/*','代表一个整数的形成，如果扫面到‘，’则整数计数减一*/
 		{
 			result[length] = str[0];
 			delete_one_char(str);
@@ -55,7 +56,7 @@ int treate_one_str(char *result, char *str, char *aim)
 			result[length] = '\0';
 			count --;
 		}
-		else if(str[0] <= '9' && str[0] >= '0')
+		else if(str[0] <= '9' && str[0] >= '0')/*遇到数字字符则同数字字符对待*/
 		{
 			result[length] = str[0];
 			delete_one_char(str);
@@ -71,6 +72,7 @@ int treate_one_str(char *result, char *str, char *aim)
 	return 0;
 }
 
+/*检查是否为完整的整数数组*/
 int check_str_is_ok(const char *str)
 {
 	int len = strlen(str);
@@ -108,9 +110,9 @@ int main()
 		return -1;
 	}
 
-	while(0 < strlen(str1) || 0 < strlen(str2))
+	while(0 < strlen(str1) || 0 < strlen(str2))/*主循环，用于生成目标串*/
 	{
-		if(str_flag == 1)
+		if(str_flag == 1)/*字符串选择标记，处理完str1则会处理str2，知道所有str都被删除为0*/
 		{
 			ret = treate_one_str(result, str1, str2);
 			if(ret == -1)
