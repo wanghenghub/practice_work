@@ -8,6 +8,7 @@
 #define MAX_STR_SIZE (100)
 #define MAX_RE_STR_SIZE (200)
 static int WORDS_COUNT = 0;
+static int str_null_flag = 0;
 
 void print_string(const char *result)
 {
@@ -37,12 +38,13 @@ int treate_one_str(char *result, char *str, char *aim)
 	{
 		if(0 >= strlen(str))
 		{
-			if(0 < strlen(aim))
+			if(0 < strlen(aim) && str_null_flag == 0)
 			{
 				result[length] = ',';
 				length ++;
 				result[length] = '\0';
 			}
+			str_null_flag = 1;
 			return 0;
 		}
 		if(str[0] == ',')
